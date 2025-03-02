@@ -9,10 +9,7 @@ import { getLogout } from '@/api/api';
 // import LoginModal from '../Modal/LoginModal';
 const LoginModal = React.lazy(() => import('../Modal/LoginModal'));
 
-
 export const Login = () => {
-
-
   const [isLoginModalOpen, setLoginModalOpen] = useState(false); // State variable for login modal
   const [userData, setUserData] = useRecoilState<User>(UUid);
   const [isLogin, setisLogin] = useState<boolean>(false);
@@ -40,21 +37,19 @@ export const Login = () => {
     }
   };
 
-  const logout =async (e:any) => {
+  const logout = async (e: any) => {
     console.log('로그아웃');
-    try{
-      const response = await getLogout()
-      console.log(response)
-    }catch(e){
-
-    }
+    try {
+      const response = await getLogout();
+      console.log(response);
+    } catch (e) {}
     setUserData({
       is_active: false,
     });
     cookie.remove('accessToken', { path: '/' });
 
     navigate('/');
-    
+
     location.reload();
   };
 
