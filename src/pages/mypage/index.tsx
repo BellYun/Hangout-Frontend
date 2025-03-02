@@ -117,7 +117,9 @@ function Profile() {
               <Container>
                 <Container1>
                   <ProfileImgWrap>
-                    <ProfileImg bgImg={data.imageUrls[0] ? data.imageUrls[0] : user} />
+                    <ProfileImg
+                      bgImg={data.imageUrls[0] ? data.imageUrls[0] : user}
+                    />
                     {data.imageUrls && data.imageUrls.length > 0 && (
                       <ProfileImgDeleteButton
                         style={{ fontSize: '2rem' }}
@@ -125,12 +127,24 @@ function Profile() {
                       />
                     )}
                   </ProfileImgWrap>
-                  <NickName style={{ marginTop: '2rem' }}>{data.nickname}</NickName>
-                  <NickName>{data.age}대 {data.gender === 'MAN' ? '남자' : '여자'}</NickName>
-                  <ChangeBtn onClick={handleModal} type="button">프로필 수정</ChangeBtn>
-                  <MyPostList onClick={() => handleSectionChange('mypost')}>내 게시물</MyPostList>
-                  <MyCommentList onClick={() => handleSectionChange('comment')}>내 댓글</MyCommentList>
-                  <MyLikeList onClick={() => handleSectionChange('like')}>위시 리스트</MyLikeList>
+                  <NickName style={{ marginTop: '2rem' }}>
+                    {data.nickname}
+                  </NickName>
+                  <NickName>
+                    {data.age}대 {data.gender === 'MAN' ? '남자' : '여자'}
+                  </NickName>
+                  <ChangeBtn onClick={handleModal} type="button">
+                    프로필 수정
+                  </ChangeBtn>
+                  <MyPostList onClick={() => handleSectionChange('mypost')}>
+                    내 게시물
+                  </MyPostList>
+                  <MyCommentList onClick={() => handleSectionChange('comment')}>
+                    내 댓글
+                  </MyCommentList>
+                  <MyLikeList onClick={() => handleSectionChange('like')}>
+                    위시 리스트
+                  </MyLikeList>
                 </Container1>
               </Container>
               {modalOpen && (
