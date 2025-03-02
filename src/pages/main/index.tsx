@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Content from './Contents';
-import trip1 from '../../assets/image/trip1.jpg';
+import trip1 from '../../assets/image/trip1.webp';
 import trip2 from '../../assets/image/trip2.jpg';
 import trip3 from '../../assets/image/trip3.jpg';
 import '../../assets/font/font.css';
