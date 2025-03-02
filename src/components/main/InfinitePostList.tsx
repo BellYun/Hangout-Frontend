@@ -8,10 +8,15 @@ import place from '@/assets/image/placeholder.png';
 import { useNavigate } from 'react-router-dom';
 import { PostType } from '@/types/post';
 import axios from 'axios';
-import gyeongju from '@/assets/image/trip1.jpg';
+import gyeongju from '@/assets/image/trip1.webp';
 import user from '@/assets/image/user.png';
 import cookie from 'react-cookies';
-import { getLikeData, getPostData, getPostListData, postLikeData } from '@/api/api';
+import {
+  getLikeData,
+  getPostData,
+  getPostListData,
+  postLikeData,
+} from '@/api/api';
 
 const InfinitePostList = (queryString: any) => {
   const url2 = 0;
@@ -19,25 +24,25 @@ const InfinitePostList = (queryString: any) => {
   const keyword = queryString.searchKeyword.toString();
   const navigate = useNavigate();
   const [likedata, setLikeData] = useState<PostType[] | undefined>();
-  const [listData, setListData] = useState<PostType[] >([]);
+  const [listData, setListData] = useState<PostType[]>([]);
   const [liked, setLiked] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const loadMore = () =>{
-    console.log('hello')
-    setPage(prev => prev + 1);
-  }
-  
-  const PostListData = async (page:number) => {
+  const loadMore = () => {
+    console.log('hello');
+    setPage((prev) => prev + 1);
+  };
+
+  const PostListData = async (page: number) => {
     console.log(Type);
-    console.log(keyword)
+    console.log(keyword);
     try {
-      const response = await getPostListData(page,Type,keyword)
+      const response = await getPostListData(page, Type, keyword);
       const responseData: PostType[] = response.data.data;
-      if (listData !== undefined){
-        setListData(prev => [...prev, ...responseData]);
-      }else{
+      if (listData !== undefined) {
+        setListData((prev) => [...prev, ...responseData]);
+      } else {
         setListData(responseData);
       }
       console.log(responseData);
@@ -46,28 +51,28 @@ const InfinitePostList = (queryString: any) => {
     } catch (error) {
       console.log(error);
     }
-  };// 게시물 조회를 무한으로 불러오는 API
+  }; // 게시물 조회를 무한으로 불러오는 API
 
   useEffect(() => {
     PostListData(page);
-  }, [Type, keyword,page]);
+  }, [Type, keyword, page]);
 
   const pageEnd = useRef();
 
-  useEffect(()=>{
-    if(loading){
+  useEffect(() => {
+    if (loading) {
       const observer = new IntersectionObserver(
-        entries =>{
-          if(entries[0].isIntersecting){
+        (entries) => {
+          if (entries[0].isIntersecting) {
             loadMore();
           }
         },
-        {threshold:1}
+        { threshold: 1 },
       );
       //옵저버 탐색 시작
-      observer.observe(pageEnd.current)
+      observer.observe(pageEnd.current);
     }
-  },[loading])
+  }, [loading]);
 
   useEffect(() => {
     const LikeListData = async () => {
@@ -89,7 +94,7 @@ const InfinitePostList = (queryString: any) => {
   const setLike = async (postId: number) => {
     //로그인 안된 경우 코드 수정
     try {
-      postLikeData(postId)
+      postLikeData(postId);
       console.log('좋아요 실행 및 취소');
     } catch (error) {
       console.error('Error adding like:', error);
@@ -120,8 +125,10 @@ const InfinitePostList = (queryString: any) => {
                 </ProfileWrap>
                 <DateWrap>
                   <DateTitle>여행 기간</DateTitle>
-                  <Date>{datas.travelDateStart.slice(5, 10).replace(/-/g, '/')}{' '}
-                        - {datas.travelDateEnd.slice(5, 10).replace(/-/g, '/')}</Date>
+                  <Date>
+                    {datas.travelDateStart.slice(5, 10).replace(/-/g, '/')} -{' '}
+                    {datas.travelDateEnd.slice(5, 10).replace(/-/g, '/')}
+                  </Date>
                 </DateWrap>
               </TopWarp>
               <MiddleWrap>
@@ -146,10 +153,14 @@ const InfinitePostList = (queryString: any) => {
                   />
                 </HeartLayout>
                 <ImgWrap>
-                   <Img style={{
-                    backgroundImage : !datas.imageUrls[0]  ? gyeongju : `url(${datas.imageUrls})`
-                    }} 
-                    onClick={() => goto(datas.id)}>
+                  <Img
+                    style={{
+                      backgroundImage: !datas.imageUrls[0]
+                        ? gyeongju
+                        : `url(${datas.imageUrls})`,
+                    }}
+                    onClick={() => goto(datas.id)}
+                  >
                     <ImgInfo></ImgInfo>
                   </Img>
                 </ImgWrap>
@@ -166,9 +177,11 @@ const InfinitePostList = (queryString: any) => {
               <PostInfo>
                 <DestinationWrap>
                   <PlaceLayout>
-                    <img src={place} alt="Place"/>
+                    <img src={place} alt="Place" />
                   </PlaceLayout>
-                  <DestinationText>{datas.travelState} {datas.travelCity}</DestinationText>
+                  <DestinationText>
+                    {datas.travelState} {datas.travelCity}
+                  </DestinationText>
                 </DestinationWrap>
                 <Title onClick={() => goto(datas.id)}>{datas.title}</Title>
                 <Member>{datas.travelMember}인 동행을 원해요!</Member>
@@ -176,8 +189,8 @@ const InfinitePostList = (queryString: any) => {
             </Content>
           ))}
         </GridLayout>
-      </ContentLayout >
-      <div ref={pageEnd}/>
+      </ContentLayout>
+      <div ref={pageEnd} />
     </PreviewBackground>
   );
 };
