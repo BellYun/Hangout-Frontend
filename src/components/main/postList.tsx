@@ -5,7 +5,7 @@ import likeIcon from '@mui/icons-material/Favorite';
 import place from '@/assets/image/placeholder.png';
 import { useNavigate } from 'react-router-dom';
 import { PostType } from '@/types/post';
-import gyeongju from '@/assets/image/trip1.jpg';
+import gyeongju from '@/assets/image/trip1.webp';
 import user from '@/assets/image/user.png';
 import cookie from 'react-cookies';
 import { getLikeData, getPostListData, postLikeData } from '@/api/api';
@@ -28,8 +28,8 @@ const Preview = (queryString: any) => {
     isLoading: isListDataLoading,
     isError: isListDataError,
   } = useQuery(postListQueryKey, async () => {
-    const response = await getPostListData(0,Type,keyword)
-    console.log(response)
+    const response = await getPostListData(0, Type, keyword);
+    console.log(response);
     const responseData: PostType[] = response.data.data;
     return responseData;
   });
@@ -55,8 +55,6 @@ const Preview = (queryString: any) => {
     },
   );
 
-
-
   const setLike = async (postId: number) => {
     //로그인 안된 경우 코드 수정
     try {
@@ -64,12 +62,11 @@ const Preview = (queryString: any) => {
       console.log('좋아요 실행 및 취소');
     } catch (error) {
       console.log(error);
-      if(error.response.status === 401){
-        alert('로그인을 진행해주세요!')
+      if (error.response.status === 401) {
+        alert('로그인을 진행해주세요!');
       }
     }
-  }
-
+  };
 
   // const likeMutation = useMutation(
   //   async (postId: number) => {
@@ -78,11 +75,11 @@ const Preview = (queryString: any) => {
   //   {
   //     onMutate: async (postId: number) => {
   //       await queryClient.cancelQueries(likeDataQueryKey);
-        
+
   //       const previousLiked = queryClient.getQueryData<PostType[]>(likeDataQueryKey);
-        
-  //       setLiked((prevLiked) => 
-  //         prevLiked.includes(postId) 
+
+  //       setLiked((prevLiked) =>
+  //         prevLiked.includes(postId)
   //           ? prevLiked.filter((id) => id !== postId)
   //           : [...prevLiked, postId]
   //       );
@@ -104,7 +101,6 @@ const Preview = (queryString: any) => {
   //   }
   // );
 
-
   // const setLike = (postId: number) => {
   //   if (!cookie.load('accessToken')) {
   //     alert('로그인을 진행해주세요!');
@@ -113,7 +109,6 @@ const Preview = (queryString: any) => {
   //   likeMutation.mutate(postId);
   // };
 
-  
   const goto = (num: number): void => {
     const postnum = String(num);
     navigate(`board/${postnum}`);
