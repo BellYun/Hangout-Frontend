@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import cookie from 'react-cookies';
-import user from '../../assets/image/user.png';
+import user from '../../assets/image/user.webp';
 import { useQuery } from '@tanstack/react-query';
 import { getPostData, getPostListData, getUserData } from '@/api/api';
 import { useParams } from 'react-router-dom';
@@ -41,7 +41,7 @@ export interface IUserData {
 
 const Post = () => {
   const [userId, setUserId] = useState<any | undefined>('');
-  const [myData, setMyData] = useState<any | undefined>('');  
+  const [myData, setMyData] = useState<any | undefined>('');
   const [PostData, setPostData] = useState<any>('');
 
   const { postId } = useParams();
@@ -51,13 +51,13 @@ const Post = () => {
     const PostListData = async () => {
       try {
         const response = await getPostData(postId);
-        console.log(response.data.data)
-        setPostData(response.data.data)
+        console.log(response.data.data);
+        setPostData(response.data.data);
       } catch (error) {
         console.log(error);
       }
-      console.log(`엥`)
-    }
+      console.log(`엥`);
+    };
     PostListData();
   }, []);
 

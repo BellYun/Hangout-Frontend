@@ -11,7 +11,7 @@ import { PostType } from '@/types/post';
 import { useNavigate } from 'react-router-dom';
 import cookie from 'react-cookies';
 import styled from 'styled-components';
-import backgroundImg from '@/assets/image/Background.jpg';
+import backgroundImg from '@/assets/image/Background.webp';
 import Maps from '@/pages/post/CreateMap';
 import { BASE_URL } from '@/api/api';
 import { response } from 'msw';
@@ -35,15 +35,12 @@ const CreatePostPage = () => {
   useEffect(() => {
     const UserDatas = async () => {
       try {
-        const response = await axios.get(
-          `${BASE_URL}/user/me`,
-          {
-            headers: {
-              Authorization: `Bearer ${cookie.load('accessToken')}`,
-              'Access-Control-Allow-Origin': '*',
-            },
+        const response = await axios.get(`${BASE_URL}/user/me`, {
+          headers: {
+            Authorization: `Bearer ${cookie.load('accessToken')}`,
+            'Access-Control-Allow-Origin': '*',
           },
-        );
+        });
         console.log(response);
         const responseData = response.data.data;
         console.log(responseData);
@@ -65,19 +62,16 @@ const CreatePostPage = () => {
   useEffect(() => {
     const PostListData = async () => {
       try {
-        const response = await axios.get(
-          `${BASE_URL}/post/all/0`,
-          {
-            params: {
-              searchType: '',
-              searchKeyword: '',
-            },
-            headers: {
-              Authorization: `Bearer ${cookie.load('accessToken')}`,
-              'Access-Control-Allow-Origin': '*',
-            },
+        const response = await axios.get(`${BASE_URL}/post/all/0`, {
+          params: {
+            searchType: '',
+            searchKeyword: '',
           },
-        );
+          headers: {
+            Authorization: `Bearer ${cookie.load('accessToken')}`,
+            'Access-Control-Allow-Origin': '*',
+          },
+        });
         const responseData: PostType[] = response.data.data;
         setNextId(responseData[0].id + 1);
         console.log(responseData[0].id);
@@ -125,8 +119,8 @@ const CreatePostPage = () => {
   }, [travelat]);
 
   const [mapLatlng, setMapLatlng] = useState({
-    x:37.5,
-    y:127.039573
+    x: 37.5,
+    y: 127.039573,
   });
 
   const handleMapClick = (latlng) => {
@@ -172,7 +166,7 @@ const CreatePostPage = () => {
   //           .toFile('resizeIMG.jpeg', (err:any, info:any) => {
   //             console.log(`리사이징 이미지 info : ${JSON.stringify(info, null, 2)}`);
   //           });
-      
+
   //         const formData = new FormData();
   //         formData.append('file', image);
   //         try {
