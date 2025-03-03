@@ -1,13 +1,12 @@
 import React from 'react';
-import SearchContent from '@/components/travel/searchcontent/searchcontent'
+import SearchContent from '@/components/travel/searchcontent/searchcontent';
 import styled from 'styled-components';
-
 
 const Travel = () => {
   return (
     <SearchBackground>
-        <Searchimg/>
-        <SearchContent/>
+      <Searchimg />
+      <SearchContent />
     </SearchBackground>
   );
 };
@@ -22,11 +21,11 @@ const SearchBackground = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-`
+`;
 
 const Searchimg = styled.div`
   width: 100%;
   height: 400px;
-  background-image: url("/src/assets/image/Background.jpg");
+  background-image: url('/src/assets/image/Background.webp');
   background-position: center center;
-`
+`;

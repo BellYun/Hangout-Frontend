@@ -1,6 +1,6 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react';
 import styled from 'styled-components';
-import user from '@/assets/image/user.png';
+import user from '@/assets/image/user.webp';
 import { useQuery } from '@tanstack/react-query';
 import { restFetcher } from '@/queryClient';
 import axios from 'axios';
@@ -9,8 +9,8 @@ import { PostType } from '@/types/post';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import likeIcon from '@mui/icons-material/Favorite';
 import unlikeIcon from '@mui/icons-material/FavoriteBorder';
-import gyeongju from '@/assets/image/trip3.jpg';
-import place from '@/assets/image/placeholder.png';
+import gyeongju from '@/assets/image/trip3.webp';
+import place from '@/assets/image/placeholder.webp';
 import { useNavigate } from 'react-router-dom';
 import cookie from 'react-cookies';
 import '@/assets/font/font.css';

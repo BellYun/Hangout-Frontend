@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { useQuery } from '@tanstack/react-query';
 import { restFetcher } from '@/queryClient';
 import likeIcon from '@mui/icons-material/Favorite';
-import Comment from '@/assets/image/detailcomment.png';
-import place from '@/assets/image/placeholder.png';
+import Comment from '@/assets/image/detailcomment.webp';
+import place from '@/assets/image/placeholder.webp';
 import { useNavigate } from 'react-router-dom';
 import { PostType } from '@/types/post';
 import axios from 'axios';
-import gyeongju from '@/assets/image/trip1.jpg';
-import user from '@/assets/image/user.png';
+import gyeongju from '@/assets/image/trip1.webp';
+import user from '@/assets/image/user.webp';
 import cookie from 'react-cookies';
 import {
   getLikeData,

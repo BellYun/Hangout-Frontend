@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import user from '../../../assets/image/user.png';
+import user from '../../../assets/image/user.webp';
 import cookie from 'react-cookies';
 import ClearIcon from '@mui/icons-material/Clear';
 
@@ -100,7 +100,7 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({
 
   const handleNicknameSubmit = async (nickname: string) => {
     try {
-      putUserData(nickname)
+      putUserData(nickname);
       alert('닉네임이 변경되었습니다');
       window.location.reload();
       console.log('성공');

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import jejuBtn from '../../assets/image/jeju-btn.png';
-import gyeongjuBtn from '../../assets/image/gyeongju-btn.png';
-import seoulBtn from '../../assets/image/seoul-btn.png';
-import busanBtn from '../../assets/image/busan-btn.png';
-import jeonraBtn from '../../assets/image/jeonra-btn.png';
-import allBtn from '../../assets/image/all-btn.png';
+import jejuBtn from '../../assets/image/jeju-btn.webp';
+import gyeongjuBtn from '../../assets/image/gyeongju-btn.webp';
+import seoulBtn from '../../assets/image/seoul-btn.webp';
+import busanBtn from '../../assets/image/busan-btn.webp';
+import jeonraBtn from '../../assets/image/jeonra-btn.webp';
+import allBtn from '../../assets/image/all-btn.webp';
 import PostList from '@/components/main/postList';
 
-//TODO:> png webp 
+//TODO:> png webp
 
 interface ContentsImgProps {
   backgroundImg: string;
