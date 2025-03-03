@@ -8,7 +8,7 @@ import place from '@/assets/image/placeholder.png';
 import { useNavigate } from 'react-router-dom';
 import { PostType } from '@/types/post';
 import axios from 'axios';
-import gyeongju from '@/assets/image/trip1.webp';
+import gyeongju from '@/assets/image/trip1.jpg';
 import user from '@/assets/image/user.png';
 import cookie from 'react-cookies';
 import {
