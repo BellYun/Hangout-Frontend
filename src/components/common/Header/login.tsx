@@ -6,8 +6,8 @@ import cookie from 'react-cookies';
 import styled from 'styled-components';
 import axios from 'axios';
 import { getLogout } from '@/api/api';
-// import LoginModal from '../Modal/LoginModal';
-const LoginModal = React.lazy(() => import('../Modal/LoginModal'));
+import LoginModal from '../Modal/LoginModal';
+// const LoginModal = React.lazy(() => import('../Modal/LoginModal'));
 
 export const Login = () => {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false); // State variable for login modal
