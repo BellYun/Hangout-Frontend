@@ -68,19 +68,19 @@ const GlobalStyle = createGlobalStyle`
     color:inherit;
   }
   button {
-    
+    font-display: swap;
   }
-`
+`;
 
 function App() {
-  return(
+  return (
     <ThemeProvider theme={darkTheme}>
-      <GlobalStyle/>
+      <GlobalStyle />
+      {/* <Suspense fallback={null}> */}
       <RouterProvider router={router}></RouterProvider>
+      {/* </Suspense> */}
     </ThemeProvider>
-  )
+  );
 }
 
 export default App;
-
-

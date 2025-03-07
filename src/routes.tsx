@@ -1,14 +1,16 @@
-import React from 'react';
-import GlobalLayout from './pages/_layout';
+import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Main from './pages/main';
-import SignUpPage from './pages/SignUpPage';
-import CreatePostPage from './pages/post/CreatePostPage';
-import KMap from './pages/Map';
-import Mypage from './pages/mypage/index';
-import Travel from './pages/Travel';
-import Detail from './pages/Detail';
-import ErrorPage from './pages/Errorpage';
+
+const GlobalLayout = lazy(() => import('./pages/_layout'));
+// const Main = lazy(() => import('./pages/main'));
+const SignUpPage = lazy(() => import('./pages/SignUpPage'));
+const CreatePostPage = lazy(() => import('./pages/post/CreatePostPage'));
+const KMap = lazy(() => import('./pages/Map'));
+const Mypage = lazy(() => import('./pages/mypage/index'));
+const Travel = lazy(() => import('./pages/Travel'));
+const Detail = lazy(() => import('./pages/Detail'));
+const ErrorPage = lazy(() => import('./pages/Errorpage'));
 
 export const router = createBrowserRouter([
   {
