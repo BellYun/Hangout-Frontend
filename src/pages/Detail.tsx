@@ -34,7 +34,7 @@ const Comment = styled.div`
   margin-top: 1rem;
   padding: 8px;
   background-color: #ffffff;
-  font-family: 'NanumSquareNeo-Variable';
+  font-family: 'Pretendard-Regular';
 `;
 
 const CommentButton = styled.div`
@@ -98,7 +98,7 @@ const ChildrenComments = styled.div`
   margin-top: 0.1rem;
   padding: 8px;
   background-color: #f7f7f7;
-  font-family: 'NanumSquareNeo-Variable';
+  font-family: 'Pretendard-Regular';
 `;
 
 const Bg = styled.div`

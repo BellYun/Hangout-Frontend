@@ -166,14 +166,14 @@ const BackgroundWrap = styled.div`
   height: 55rem;
   width: 100%;
   display: flex;
-  font-family: 'NanumSquareNeoTTF';
+  font-family: 'Pretendard-Regular';
   justify-content: center;
 `;
 const Bg = styled.div`
   height: 49rem;
   width: 40%;
   margin-left: -15rem;
-  font-family: 'NanumSquareNeoTTF';
+  font-family: 'Pretendard-Regular';
   flex-direction: row;
 `;
 

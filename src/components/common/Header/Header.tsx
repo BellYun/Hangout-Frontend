@@ -17,9 +17,7 @@ export const Header = () => {
 
   const onSilentRefresh = async () => {
     try {
-      const response = await axios.post(
-        BASE_URL + '/auth/refresh-token',
-      );
+      const response = await axios.post(BASE_URL + '/auth/refresh-token');
       const accessToken = response.data.data.accessToken;
       console.log(accessToken);
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
@@ -180,7 +178,7 @@ const Inputlayout = styled.div`
   flex-direction: row;
   justify-content: space-between;
   font-size: medium;
-  font-family: NanumSquareNeo-Variable;
+  font-family: 'Pretendard-Regular';
 
   @media (max-width: 700px) {
     width: 70%;

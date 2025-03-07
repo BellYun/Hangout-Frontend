@@ -255,7 +255,7 @@ const CreateFlex = styled.div`
 `;
 
 const Btn = styled.div`
-  font-family: 'NanumSquareNeo-Variable';
+  font-family: 'Pretendard-Regular';
   height: 3.5rem;
   width: 100%;
   border-radius: 1rem;
