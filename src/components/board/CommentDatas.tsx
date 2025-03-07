@@ -1,10 +1,16 @@
-import { BASE_URL, getCommentData, getUserData, putCommnetData, sendCommentData } from "@/api/api";
-import { commentType } from "@/types/post";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import styled from "styled-components";
+import {
+  BASE_URL,
+  getCommentData,
+  getUserData,
+  putCommnetData,
+  sendCommentData,
+} from '@/api/api';
+import { commentType } from '@/types/post';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import cookie from 'react-cookies';
 
 export const CommentDatas = () => {
@@ -39,7 +45,7 @@ export const CommentDatas = () => {
   useEffect(() => {
     async function CommentListData(): Promise<void> {
       try {
-        const response = await getCommentData(postId)
+        const response = await getCommentData(postId);
         console.log(response);
         const responseData = response.data.data;
         if (responseData) {
@@ -121,16 +127,14 @@ export const CommentDatas = () => {
     console.log(commentData);
   };
 
-
-
   const sendComment = async () => {
     try {
-      const response = await sendCommentData(userData.id,postId,'',target)
+      const response = await sendCommentData(userData.id, postId, '', target);
       console.log(response);
       alert('작성되었습니다');
     } catch (error) {
       console.log(error);
-      alert(error)
+      alert(error);
     }
     location.reload();
   };
@@ -138,7 +142,12 @@ export const CommentDatas = () => {
   const sendChildcomment = async (index: number) => {
     if (isFix === false) {
       try {
-        const response = await sendCommentData(userData.id,postId,commentData[index].id,ChildrenComment)
+        const response = await sendCommentData(
+          userData.id,
+          postId,
+          commentData[index].id,
+          ChildrenComment,
+        );
         console.log(response);
         alert('작성되었습니다!');
       } catch (error) {
@@ -146,7 +155,10 @@ export const CommentDatas = () => {
       }
     } else {
       try {
-        const response = await putCommnetData(commentData[index].id,ChildrenComment);
+        const response = await putCommnetData(
+          commentData[index].id,
+          ChildrenComment,
+        );
         console.log(response);
         alert('수정되었습니다!');
       } catch (error) {
@@ -199,20 +211,18 @@ export const CommentDatas = () => {
       setIsFix(false);
       setIsSelect(index);
     };
-  
+
     const ClickChildrenComment = (index: any) => {
       setIsFix(false);
       setCommentIsSelect(index);
     };
-  
   }
-
 
   const ClickChildrenComment = (index: any) => {
     setIsFix(false);
     setCommentIsSelect(index);
   };
-  
+
   return (
     <Container2>
       <CommentLayout>
@@ -255,9 +265,7 @@ export const CommentDatas = () => {
               <CommentContent>
                 <Text>{datas.content}</Text>
                 {/* <CommentButton2 onClick={() => ClickComment(index)}> */}
-                <CommentButton2>
-                  답글
-                </CommentButton2>
+                <CommentButton2>답글</CommentButton2>
               </CommentContent>
               {datas.isSelect === false ? (
                 ''
@@ -311,7 +319,7 @@ export const CommentDatas = () => {
       </div>
     </Container2>
   );
-}
+};
 
 const CommentLayout = styled.div`
   margin: 0px;
@@ -325,7 +333,7 @@ const Comment = styled.div`
   margin-top: 1rem;
   padding: 15px;
   background-color: #ffffff;
-  font-family: 'NanumSquareNeo-Variable';
+  font-family: 'Pretendard-Regular';
 `;
 
 const CommentButton = styled.div`
@@ -416,7 +424,7 @@ const ChildrenComments = styled.div`
   margin-left: 2.5rem;
   padding: 8px;
   background-color: #f7f7f7;
-  font-family: 'NanumSquareNeo-Variable';
+  font-family: 'Pretendard-Regular';
 `;
 
 const Bg = styled.div`

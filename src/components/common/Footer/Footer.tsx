@@ -14,7 +14,7 @@ export default Footer;
 const FooterLayout = styled.div`
   width: 100%;
   height: 50px;
-  font-family: NanumSquareNeo-Variable;
+  font-family: Pretendard-Regular;
   font-size: small;
   padding: 7rem;
   border-top: 1px solid #bcbcbc;
