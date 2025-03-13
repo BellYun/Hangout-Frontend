@@ -6,8 +6,9 @@ import seoulBtn from '../../assets/image/seoul-btn.webp';
 import busanBtn from '../../assets/image/busan-btn.webp';
 import jeonraBtn from '../../assets/image/jeonra-btn.webp';
 import allBtn from '../../assets/image/all-btn.webp';
-import PostList from '@/components/main/postList';
+// import PostList from '@/components/main/postList';
 
+const PostList = React.lazy(() => import('@/components/main/postList'));
 //TODO:> png webp
 
 interface ContentsImgProps {
