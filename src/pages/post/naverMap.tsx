@@ -27,6 +27,14 @@ const NaverMap = ({ postData }) => {
   //   initMap();
   // }, [postData]);
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src =
+      'https://oapi.map.naver.com/openapi/v3/maps.js?ncpClient=x50dv39aur';
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   const mapStyle = {
     width: '75vw',
     height: '25vw',
