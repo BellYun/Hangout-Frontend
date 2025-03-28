@@ -1,9 +1,8 @@
 import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Main from './pages/main';
+import Layout from './pages/_layout';
 
-const GlobalLayout = lazy(() => import('./pages/_layout'));
-// const Main = lazy(() => import('./pages/main'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage'));
 const CreatePostPage = lazy(() => import('./pages/post/CreatePostPage'));
 const KMap = lazy(() => import('./pages/Map'));
@@ -15,7 +14,7 @@ const ErrorPage = lazy(() => import('./pages/Errorpage'));
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <GlobalLayout />,
+    element: <Layout />,
     children: [
       {
         path: '/',
