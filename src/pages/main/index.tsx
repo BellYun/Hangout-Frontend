@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import Content from './Contents';
 import trip1 from '../../assets/image/trip1.webp';
 import trip2 from '../../assets/image/trip2.webp';
 import trip3 from '../../assets/image/trip3.webp';
 import '../../assets/font/font.css';
 import { useNavigate } from 'react-router-dom';
+
+const HeroCarousel = lazy(() => import('./HeroCarousel'));
+const CAROUSEL_MOUNT_DELAY_MS = 1200;
+
+interface HeroItem {
+  id: number;
+  url: string;
+  alt: string;
+}
 
 const items = [
   { id: 1, url: trip1, alt: '여행 메인 이미지 1' },
@@ -108,60 +114,87 @@ const TextContainer = styled.div`
   overflow: visible;
 `;
 
+const Layout = styled.div`
+  height: 100%;
+`;
+
+interface HeroSlideProps {
+  item: HeroItem;
+  onWriteClick: () => void;
+  loading: 'eager' | 'lazy';
+}
+
+const HeroSlide = ({ item, onWriteClick, loading }: HeroSlideProps) => {
+  return (
+    <ImageContainer>
+      <HeroImage
+        src={item.url}
+        alt={item.alt}
+        width={1920}
+        height={1280}
+        loading={loading}
+        decoding="async"
+      />
+      <HeroOverlay />
+      <TitleContainer>
+        세상의 <Highlight>다양한</Highlight> 곳을
+        <br /> 세상의 <Highlight>다양한</Highlight> 사람들과{' '}
+        <Highlight>함께</Highlight>할 수 있도록
+      </TitleContainer>
+
+      <TextContainer>
+        새로운 사람과의 만남은 여행의 매력 중 하나입니다. <br />
+        개방적이고 호기심 가득한 마음으로 다양한 사람들과 소통하고
+        동행해보세요.
+      </TextContainer>
+      <WriteLayout>
+        <WriteButton onClick={onWriteClick}>동행 찾기</WriteButton>
+      </WriteLayout>
+    </ImageContainer>
+  );
+};
+
 const Main = () => {
   const navigate = useNavigate();
-
-  const settings = {
-    dots: false,
-    infinite: true, //무한 반복 옵션
-    fade: true,
-    speed: 2000,
-    slidesToShow: 1, //한 화면에 보여질 컨텐츠 개수
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-  };
+  const [showCarousel, setShowCarousel] = useState(false);
 
   const gotoWrite = () => {
     console.log('hello');
     navigate('/create-post');
   };
 
-  const Layout = styled.div`
-    height: 100%;
-  `;
+  useEffect(() => {
+    const timerId = window.setTimeout(() => {
+      setShowCarousel(true);
+    }, CAROUSEL_MOUNT_DELAY_MS);
+
+    return () => {
+      window.clearTimeout(timerId);
+    };
+  }, []);
 
   return (
     <Layout>
-      <Slider {...settings}>
-        {items.map((item) => (
-          <ImageContainer key={item.id}>
-            <HeroImage
-              src={item.url}
-              alt={item.alt}
-              width={1920}
-              height={1280}
-              loading={item.id === 1 ? 'eager' : 'lazy'}
-              decoding="async"
-            />
-            <HeroOverlay />
-            <TitleContainer>
-              세상의 <Highlight>다양한</Highlight> 곳을
-              <br /> 세상의 <Highlight>다양한</Highlight> 사람들과{' '}
-              <Highlight>함께</Highlight>할 수 있도록
-            </TitleContainer>
-
-            <TextContainer>
-              새로운 사람과의 만남은 여행의 매력 중 하나입니다. <br />
-              개방적이고 호기심 가득한 마음으로 다양한 사람들과 소통하고
-              동행해보세요.
-            </TextContainer>
-            <WriteLayout>
-              <WriteButton onClick={() => gotoWrite()}>동행 찾기</WriteButton>
-            </WriteLayout>
-          </ImageContainer>
-        ))}
-      </Slider>
+      {!showCarousel ? (
+        <HeroSlide item={items[0]} onWriteClick={gotoWrite} loading="eager" />
+      ) : (
+        <Suspense
+          fallback={
+            <HeroSlide item={items[0]} onWriteClick={gotoWrite} loading="eager" />
+          }
+        >
+          <HeroCarousel>
+            {items.map((item) => (
+              <HeroSlide
+                key={item.id}
+                item={item}
+                onWriteClick={gotoWrite}
+                loading={item.id === 1 ? 'eager' : 'lazy'}
+              />
+            ))}
+          </HeroCarousel>
+        </Suspense>
+      )}
       <Content />
     </Layout>
   );
