@@ -1,5 +1,5 @@
 import React, { useState, lazy, Suspense } from 'react';
-import SearchIcon from '@/assets/image/Search icon.webp';
+import SearchIcon from '@/assets/image/Search icon.png';
 import './detailsearch.scss';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';

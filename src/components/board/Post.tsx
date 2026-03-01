@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import cookie from 'react-cookies';
-import user from '../../assets/image/user.webp';
+import user from '../../assets/image/user.png';
 import { useQuery } from '@tanstack/react-query';
 import { getPostData, getPostListData, getUserData } from '@/api/api';
 import { useParams } from 'react-router-dom';
