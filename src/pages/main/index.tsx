@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import Content from './Contents';
 import trip1 from '../../assets/image/trip1.webp';
 import trip1_1280 from '../../assets/image/trip1-1280.webp';
@@ -186,6 +184,27 @@ const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) 
 
 const Main = () => {
   const navigate = useNavigate();
+  const [isSlickCssReady, setIsSlickCssReady] = useState(false);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    const loadSlickCss = async () => {
+      await Promise.all([
+        import('slick-carousel/slick/slick.css'),
+        import('slick-carousel/slick/slick-theme.css'),
+      ]);
+      if (!isCancelled) {
+        setIsSlickCssReady(true);
+      }
+    };
+
+    void loadSlickCss();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
 
   const settings = {
     dots: false,
@@ -205,17 +224,26 @@ const Main = () => {
 
   return (
     <Layout>
-      <Slider {...settings}>
-        {items.map((item) => (
-          <HeroSlide
-            key={item.id}
-            item={item}
-            onWriteClick={gotoWrite}
-            loading={item.id === 1 ? 'eager' : 'lazy'}
-            isLcpImage={item.id === 1}
-          />
-        ))}
-      </Slider>
+      {isSlickCssReady ? (
+        <Slider {...settings}>
+          {items.map((item) => (
+            <HeroSlide
+              key={item.id}
+              item={item}
+              onWriteClick={gotoWrite}
+              loading={item.id === 1 ? 'eager' : 'lazy'}
+              isLcpImage={item.id === 1}
+            />
+          ))}
+        </Slider>
+      ) : (
+        <HeroSlide
+          item={items[0]}
+          onWriteClick={gotoWrite}
+          loading="eager"
+          isLcpImage
+        />
+      )}
       <Content />
     </Layout>
   );
