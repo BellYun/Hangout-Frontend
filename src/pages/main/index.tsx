@@ -122,19 +122,13 @@ interface HeroSlideProps {
   item: HeroItem;
   onWriteClick: () => void;
   loading: 'eager' | 'lazy';
-  eagerLoad: boolean;
 }
 
-const HeroSlide = ({ item, onWriteClick, loading, eagerLoad }: HeroSlideProps) => {
+const HeroSlide = ({ item, onWriteClick, loading }: HeroSlideProps) => {
   return (
     <ImageContainer>
       <HeroImage
-        src={
-          eagerLoad
-            ? item.url
-            : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
-        }
-        data-lazy={eagerLoad ? undefined : item.url}
+        src={item.url}
         alt={item.alt}
         width={1920}
         height={1280}
@@ -167,7 +161,6 @@ const Main = () => {
     dots: false,
     infinite: true,
     fade: true,
-    lazyLoad: 'ondemand' as const,
     speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -189,7 +182,6 @@ const Main = () => {
             item={item}
             onWriteClick={gotoWrite}
             loading={item.id === 1 ? 'eager' : 'lazy'}
-            eagerLoad={item.id === 1}
           />
         ))}
       </Slider>
