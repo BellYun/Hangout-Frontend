@@ -1,5 +1,7 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import Content from './Contents';
 import trip1 from '../../assets/image/trip1.webp';
 import trip2 from '../../assets/image/trip2.webp';
@@ -24,7 +26,7 @@ const items = [
 
 const ImageContainer = styled.div`
   position: relative;
-  width: 100rem;
+  width: 100%;
   height: 33.5rem;
   overflow: hidden;
   display: flex;
