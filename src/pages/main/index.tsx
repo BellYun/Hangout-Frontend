@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -8,24 +8,16 @@ import trip1 from '../../assets/image/trip1.webp';
 import trip2 from '../../assets/image/trip2.webp';
 import trip3 from '../../assets/image/trip3.webp';
 import '../../assets/font/font.css';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const items = [
-  { id: 1, url: trip1 },
-  { id: 2, url: trip2 },
-  { id: 3, url: trip3 },
+  { id: 1, url: trip1, alt: '여행 메인 이미지 1' },
+  { id: 2, url: trip2, alt: '여행 메인 이미지 2' },
+  { id: 3, url: trip3, alt: '여행 메인 이미지 3' },
 ];
 
-interface ImageContainerProps {
-  imageUrl: string;
-}
-
-const ImageContainer = styled.div<ImageContainerProps>`
-  background-position: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
-    url(${(props) => props.imageUrl});
-  background-repeat: no-repeat;
-  background-size: cover;
+const ImageContainer = styled.div`
+  position: relative;
   width: 100rem;
   height: 33.5rem;
   overflow: hidden;
@@ -34,7 +26,24 @@ const ImageContainer = styled.div<ImageContainerProps>`
   justify-content: center;
 `;
 
+const HeroImage = styled.img`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+`;
+
+const HeroOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4));
+`;
+
 const TitleContainer = styled.div`
+  position: relative;
+  z-index: 1;
   margin-top: 13rem;
 
   width: 100%;
@@ -55,6 +64,7 @@ const Highlight = styled.span`
 `;
 
 const WriteButton = styled.button`
+  position: relative;
   width: 200px;
   height: 120px;
   background-color: #3baaf8;
@@ -73,6 +83,8 @@ const WriteButton = styled.button`
 `;
 
 const WriteLayout = styled.div`
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 60px;
   display: flex;
@@ -82,6 +94,8 @@ const WriteLayout = styled.div`
 `;
 
 const TextContainer = styled.div`
+  position: relative;
+  z-index: 1;
   margin-top: 2rem;
   width: 100%;
   height: 3rem;
@@ -121,7 +135,17 @@ const Main = () => {
     <Layout>
       <Slider {...settings}>
         {items.map((item) => (
-          <ImageContainer key={item.id} imageUrl={item.url}>
+          <ImageContainer key={item.id}>
+            <HeroImage
+              src={item.url}
+              alt={item.alt}
+              width={1920}
+              height={1280}
+              loading={item.id === 1 ? 'eager' : 'lazy'}
+              fetchPriority={item.id === 1 ? 'high' : 'auto'}
+              decoding="async"
+            />
+            <HeroOverlay />
             <TitleContainer>
               세상의 <Highlight>다양한</Highlight> 곳을
               <br /> 세상의 <Highlight>다양한</Highlight> 사람들과{' '}
