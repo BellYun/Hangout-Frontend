@@ -1,11 +1,9 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState } from 'react';
 import SearchIcon from '@/assets/image/Search icon.webp';
 import './detailsearch.scss';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 import Destinationmodal from '../destinationmodal/destinationmodal';
-
-// const Destinationmodal = lazy(() => import('../destinationmodal/destinationmodal'));
 
 const DetailSearch = () => {
   const [destinationmodal, setDestinationModal] = useState(false);
@@ -22,11 +20,7 @@ const DetailSearch = () => {
         여행 지역
       </button>
       <div className="modaltest">
-        {destinationmodal && (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Destinationmodal />
-          </Suspense>
-        )}
+        {destinationmodal && <Destinationmodal />}
       </div>
       <button className="dateclicklayout">
         여행 기간

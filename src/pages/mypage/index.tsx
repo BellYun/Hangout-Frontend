@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import user from '@/assets/image/user.webp';
 import { useQuery } from '@tanstack/react-query';
@@ -16,10 +16,8 @@ import cookie from 'react-cookies';
 import '@/assets/font/font.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BASE_URL, getUserData } from '@/api/api';
-// import ProfileEditModal from '@/components/common/Modal/ProfileEditModal';
+import ProfileEditModal from '@/components/common/Modal/ProfileEditModal';
 //TODO : mypage 기능 누락 수정
-
-const ProfileEditModal = lazy(() => import('@/components/common/Modal/ProfileEditModal'));
 
 export interface UserType {
   age: number;
@@ -148,9 +146,7 @@ function Profile() {
                 </Container1>
               </Container>
               {modalOpen && (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <ProfileEditModal open={modalOpen} onClose={handleModal} />
-                </Suspense>
+                <ProfileEditModal open={modalOpen} onClose={handleModal} />
               )}
             </>
           )}

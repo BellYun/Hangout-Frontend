@@ -122,9 +122,10 @@ interface HeroSlideProps {
   item: HeroItem;
   onWriteClick: () => void;
   loading: 'eager' | 'lazy';
+  isLcpImage: boolean;
 }
 
-const HeroSlide = ({ item, onWriteClick, loading }: HeroSlideProps) => {
+const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) => {
   return (
     <ImageContainer>
       <HeroImage
@@ -133,6 +134,7 @@ const HeroSlide = ({ item, onWriteClick, loading }: HeroSlideProps) => {
         width={1920}
         height={1280}
         loading={loading}
+        fetchPriority={isLcpImage ? 'high' : 'auto'}
         decoding="async"
       />
       <HeroOverlay />
@@ -182,6 +184,7 @@ const Main = () => {
             item={item}
             onWriteClick={gotoWrite}
             loading={item.id === 1 ? 'eager' : 'lazy'}
+            isLcpImage={item.id === 1}
           />
         ))}
       </Slider>
