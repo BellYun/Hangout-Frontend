@@ -1,5 +1,6 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Content from './Contents';
@@ -8,9 +9,6 @@ import trip2 from '../../assets/image/trip2.webp';
 import trip3 from '../../assets/image/trip3.webp';
 import '../../assets/font/font.css';
 import { useNavigate } from 'react-router-dom';
-
-const HeroCarousel = lazy(() => import('./HeroCarousel'));
-const CAROUSEL_MOUNT_DELAY_MS = 1200;
 
 interface HeroItem {
   id: number;
@@ -158,45 +156,35 @@ const HeroSlide = ({ item, onWriteClick, loading }: HeroSlideProps) => {
 
 const Main = () => {
   const navigate = useNavigate();
-  const [showCarousel, setShowCarousel] = useState(false);
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    fade: true,
+    speed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+  };
 
   const gotoWrite = () => {
     console.log('hello');
     navigate('/create-post');
   };
 
-  useEffect(() => {
-    const timerId = window.setTimeout(() => {
-      setShowCarousel(true);
-    }, CAROUSEL_MOUNT_DELAY_MS);
-
-    return () => {
-      window.clearTimeout(timerId);
-    };
-  }, []);
-
   return (
     <Layout>
-      {!showCarousel ? (
-        <HeroSlide item={items[0]} onWriteClick={gotoWrite} loading="eager" />
-      ) : (
-        <Suspense
-          fallback={
-            <HeroSlide item={items[0]} onWriteClick={gotoWrite} loading="eager" />
-          }
-        >
-          <HeroCarousel>
-            {items.map((item) => (
-              <HeroSlide
-                key={item.id}
-                item={item}
-                onWriteClick={gotoWrite}
-                loading={item.id === 1 ? 'eager' : 'lazy'}
-              />
-            ))}
-          </HeroCarousel>
-        </Suspense>
-      )}
+      <Slider {...settings}>
+        {items.map((item) => (
+          <HeroSlide
+            key={item.id}
+            item={item}
+            onWriteClick={gotoWrite}
+            loading={item.id === 1 ? 'eager' : 'lazy'}
+          />
+        ))}
+      </Slider>
       <Content />
     </Layout>
   );
