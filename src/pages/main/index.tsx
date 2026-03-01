@@ -30,15 +30,14 @@ const ImageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`;
-
-const HeroImage = styled.img`
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 `;
 
 const HeroOverlay = styled.div`
@@ -128,7 +127,8 @@ interface HeroSlideProps {
 const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) => {
   return (
     <ImageContainer>
-      <HeroImage
+      <img
+        className="hero-image"
         src={item.url}
         alt={item.alt}
         width={1920}
