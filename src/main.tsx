@@ -19,6 +19,33 @@ declare global {
 
 const queryClient = new QueryClient();
 
+const loadDeferredFonts = () => {
+  if (document.getElementById('deferred-font-styles')) {
+    return;
+  }
+
+  const link = document.createElement('link');
+  link.id = 'deferred-font-styles';
+  link.rel = 'stylesheet';
+  link.href = new URL('./assets/font/font.css', import.meta.url).href;
+  document.head.appendChild(link);
+};
+
+const scheduleDeferredFontLoad = () => {
+  const requestIdleCallback = (window as any).requestIdleCallback as
+    | ((callback: () => void, options?: { timeout: number }) => number)
+    | undefined;
+
+  if (requestIdleCallback) {
+    requestIdleCallback(loadDeferredFonts, { timeout: 2000 });
+    return;
+  }
+
+  window.setTimeout(loadDeferredFonts, 1200);
+};
+
+scheduleDeferredFontLoad();
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <RecoilRoot>
     <QueryClientProvider client={queryClient}>
