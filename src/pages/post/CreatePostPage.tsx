@@ -11,7 +11,7 @@ import { PostType } from '@/types/post';
 import { useNavigate } from 'react-router-dom';
 import cookie from 'react-cookies';
 import styled from 'styled-components';
-import backgroundImg from '@/assets/image/Background.jpg';
+import backgroundImg from '@/assets/image/Background.webp';
 import Maps from '@/pages/post/CreateMap';
 import { BASE_URL } from '@/api/api';
 import { response } from 'msw';
