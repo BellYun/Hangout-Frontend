@@ -142,7 +142,6 @@ const Main = () => {
               width={1920}
               height={1280}
               loading={item.id === 1 ? 'eager' : 'lazy'}
-              fetchPriority={item.id === 1 ? 'high' : 'auto'}
               decoding="async"
             />
             <HeroOverlay />
