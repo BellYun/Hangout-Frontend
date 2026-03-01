@@ -5,8 +5,14 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Content from './Contents';
 import trip1 from '../../assets/image/trip1.webp';
+import trip1_1280 from '../../assets/image/trip1-1280.webp';
+import trip1_768 from '../../assets/image/trip1-768.webp';
 import trip2 from '../../assets/image/trip2.webp';
+import trip2_1280 from '../../assets/image/trip2-1280.webp';
+import trip2_768 from '../../assets/image/trip2-768.webp';
 import trip3 from '../../assets/image/trip3.webp';
+import trip3_1280 from '../../assets/image/trip3-1280.webp';
+import trip3_768 from '../../assets/image/trip3-768.webp';
 import '../../assets/font/font.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,12 +20,32 @@ interface HeroItem {
   id: number;
   url: string;
   alt: string;
+  srcSet: string;
+  sizes: string;
 }
 
 const items = [
-  { id: 1, url: trip1, alt: '여행 메인 이미지 1' },
-  { id: 2, url: trip2, alt: '여행 메인 이미지 2' },
-  { id: 3, url: trip3, alt: '여행 메인 이미지 3' },
+  {
+    id: 1,
+    url: trip1,
+    alt: '여행 메인 이미지 1',
+    srcSet: `${trip1_768} 768w, ${trip1_1280} 1280w, ${trip1} 1920w`,
+    sizes: '100vw',
+  },
+  {
+    id: 2,
+    url: trip2,
+    alt: '여행 메인 이미지 2',
+    srcSet: `${trip2_768} 768w, ${trip2_1280} 1280w, ${trip2} 1920w`,
+    sizes: '100vw',
+  },
+  {
+    id: 3,
+    url: trip3,
+    alt: '여행 메인 이미지 3',
+    srcSet: `${trip3_768} 768w, ${trip3_1280} 1280w, ${trip3} 1920w`,
+    sizes: '100vw',
+  },
 ];
 
 const ImageContainer = styled.div`
@@ -130,6 +156,8 @@ const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) 
       <img
         className="hero-image"
         src={item.url}
+        srcSet={item.srcSet}
+        sizes={item.sizes}
         alt={item.alt}
         width={1920}
         height={1280}

@@ -1,15 +1,14 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Main from './pages/main';
 import Layout from './pages/_layout';
+import CreatePostPage from './pages/post/CreatePostPage';
+import Detail from './pages/Detail';
+import SignUpPage from './pages/SignUpPage';
+import Travel from './pages/Travel';
+import KMap from './pages/Map';
 import ErrorPage from './pages/Errorpage';
-
-const SignUpPage = lazy(() => import('./pages/SignUpPage'));
-const CreatePostPage = lazy(() => import('./pages/post/CreatePostPage'));
-const KMap = lazy(() => import('./pages/Map'));
-const Mypage = lazy(() => import('./pages/mypage/index'));
-const Travel = lazy(() => import('./pages/Travel'));
-const Detail = lazy(() => import('./pages/Detail'));
+import Mypage from './pages/mypage/index';
 
 export const router = createBrowserRouter([
   {
