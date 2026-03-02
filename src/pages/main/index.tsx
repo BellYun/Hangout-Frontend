@@ -9,6 +9,8 @@ interface HeroItem {
   id: number;
   url: string;
   alt: string;
+  srcSet: string;
+  sizes: string;
 }
 
 const items = [
@@ -16,16 +18,22 @@ const items = [
     id: 1,
     url: '/hero/trip1.webp',
     alt: '여행 메인 이미지 1',
+    srcSet: '/hero/trip1-768.webp 768w, /hero/trip1-1280.webp 1280w, /hero/trip1.webp 1920w',
+    sizes: '100vw',
   },
   {
     id: 2,
     url: '/hero/trip2.webp',
     alt: '여행 메인 이미지 2',
+    srcSet: '/hero/trip2-768.webp 768w, /hero/trip2-1280.webp 1280w, /hero/trip2.webp 1920w',
+    sizes: '100vw',
   },
   {
     id: 3,
     url: '/hero/trip3.webp',
     alt: '여행 메인 이미지 3',
+    srcSet: '/hero/trip3-768.webp 768w, /hero/trip3-1280.webp 1280w, /hero/trip3.webp 1920w',
+    sizes: '100vw',
   },
 ];
 
@@ -137,6 +145,8 @@ const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) 
       <img
         className="hero-image"
         src={item.url}
+        srcSet={item.srcSet}
+        sizes={item.sizes}
         alt={item.alt}
         width={1920}
         height={1280}
