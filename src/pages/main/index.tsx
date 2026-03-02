@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import Slider from 'react-slick';
-import Content from './Contents';
 import '../../assets/font/font.css';
 import { useNavigate } from 'react-router-dom';
+
+type SlickModule = typeof import('react-slick');
+const Content = React.lazy(() => import('./Contents'));
 
 interface HeroItem {
   id: number;
@@ -152,7 +153,7 @@ const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) 
         height={1280}
         loading={loading}
         fetchPriority={isLcpImage ? 'high' : 'auto'}
-        decoding="async"
+        decoding={isLcpImage ? 'sync' : 'async'}
       />
       <HeroOverlay />
       <TitleContainer>
@@ -175,48 +176,52 @@ const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) 
 
 const Main = () => {
   const navigate = useNavigate();
-  const [isSlickCssReady, setIsSlickCssReady] = useState(false);
+  const [SlickSlider, setSlickSlider] = useState<SlickModule['default'] | null>(null);
 
   useEffect(() => {
     let isCancelled = false;
 
-    const loadSlickCss = async () => {
-      await Promise.all([
+    const loadSlick = async () => {
+      const [{ default: Slick }] = await Promise.all([
+        import('react-slick'),
         import('slick-carousel/slick/slick.css'),
         import('slick-carousel/slick/slick-theme.css'),
       ]);
+
       if (!isCancelled) {
-        setIsSlickCssReady(true);
+        setSlickSlider(() => Slick);
       }
     };
 
-    void loadSlickCss();
+    void loadSlick();
 
     return () => {
       isCancelled = true;
     };
   }, []);
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    fade: true,
-    speed: 2000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-  };
+  const settings = useMemo(
+    () => ({
+      dots: false,
+      infinite: true,
+      fade: true,
+      speed: 2000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 5000,
+    }),
+    [],
+  );
 
   const gotoWrite = () => {
-    console.log('hello');
     navigate('/create-post');
   };
 
   return (
     <Layout>
-      {isSlickCssReady ? (
-        <Slider {...settings}>
+      {SlickSlider ? (
+        <SlickSlider {...settings}>
           {items.map((item) => (
             <HeroSlide
               key={item.id}
@@ -226,7 +231,7 @@ const Main = () => {
               isLcpImage={item.id === 1}
             />
           ))}
-        </Slider>
+        </SlickSlider>
       ) : (
         <HeroSlide
           item={items[0]}
@@ -235,7 +240,9 @@ const Main = () => {
           isLcpImage
         />
       )}
-      <Content />
+      <Suspense fallback={null}>
+        <Content />
+      </Suspense>
     </Layout>
   );
 };
