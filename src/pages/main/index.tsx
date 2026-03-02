@@ -177,8 +177,47 @@ const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) 
 const Main = () => {
   const navigate = useNavigate();
   const [SlickSlider, setSlickSlider] = useState<SlickModule['default'] | null>(null);
+  const [showDeferredContent, setShowDeferredContent] = useState(false);
 
   useEffect(() => {
+    let isCancelled = false;
+    const hero = new Image();
+
+    const revealDeferredContent = () => {
+      if (!isCancelled) {
+        setShowDeferredContent(true);
+      }
+    };
+
+    const handleLoadOrError = () => {
+      revealDeferredContent();
+    };
+
+    hero.src = items[0].url;
+    hero.srcset = items[0].srcSet;
+    hero.sizes = items[0].sizes;
+
+    hero.decode().then(revealDeferredContent).catch(() => {
+      if (hero.complete) {
+        revealDeferredContent();
+        return;
+      }
+      hero.addEventListener('load', handleLoadOrError, { once: true });
+      hero.addEventListener('error', handleLoadOrError, { once: true });
+    });
+
+    return () => {
+      isCancelled = true;
+      hero.removeEventListener('load', handleLoadOrError);
+      hero.removeEventListener('error', handleLoadOrError);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!showDeferredContent) {
+      return;
+    }
+
     let isCancelled = false;
 
     const loadSlick = async () => {
@@ -198,7 +237,7 @@ const Main = () => {
     return () => {
       isCancelled = true;
     };
-  }, []);
+  }, [showDeferredContent]);
 
   const settings = useMemo(
     () => ({
@@ -217,6 +256,27 @@ const Main = () => {
   const gotoWrite = () => {
     navigate('/create-post');
   };
+
+  if (!showDeferredContent) {
+    return (
+      <Layout>
+        <ImageContainer>
+          <img
+            className="hero-image"
+            src={items[0].url}
+            srcSet={items[0].srcSet}
+            sizes={items[0].sizes}
+            alt={items[0].alt}
+            width={1920}
+            height={1280}
+            loading="eager"
+            fetchPriority="high"
+            decoding="sync"
+          />
+        </ImageContainer>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
