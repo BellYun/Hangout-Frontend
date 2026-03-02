@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { getClient } from './queryClient';
 import { worker } from './mocks/workers';
@@ -19,18 +19,10 @@ declare global {
 
 const queryClient = new QueryClient();
 
-const Root = () => {
-  useEffect(() => {
-    void import('./assets/font/font.css');
-  }, []);
-
-  return (
-    <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </RecoilRoot>
-  );
-};
-
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(<Root />);
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <App/>
+    </QueryClientProvider>
+  </RecoilRoot>,
+);

@@ -11,6 +11,7 @@ import trip2_768 from '../../assets/image/trip2-768.webp';
 import trip3 from '../../assets/image/trip3.webp';
 import trip3_1280 from '../../assets/image/trip3-1280.webp';
 import trip3_768 from '../../assets/image/trip3-768.webp';
+import '../../assets/font/font.css';
 import { useNavigate } from 'react-router-dom';
 
 interface HeroItem {
