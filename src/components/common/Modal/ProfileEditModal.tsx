@@ -4,15 +4,7 @@ import axios from 'axios';
 import user from '../../../assets/image/user.png';
 import cookie from 'react-cookies';
 import ClearIcon from '@mui/icons-material/Clear';
-
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Hidden,
-} from '@mui/material';
+import Dialog from '@mui/material/Dialog';
 import { BASE_URL, getUserData, putUserData } from '@/api/api';
 
 interface ProfileEditModalProps {
@@ -118,10 +110,8 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({
         style: { borderRadius: 40, height: '46rem', padding: '1rem' },
       }}
     >
-      <DialogTitle style={{ fontSize: '1.5rem', height: '5rem' }}>
-        프로필 편집
-      </DialogTitle>
-      <DialogContent style={{ overflowX: 'hidden' }}>
+      <ModalHeader>프로필 편집</ModalHeader>
+      <ModalContent>
         <CaptionText>프로필 사진 변경</CaptionText>
         <ProfileImgWrap>
           {fileImage && (
@@ -172,12 +162,10 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({
             변경
           </NicknameChangeButton>
         </NicknameBox>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary">
-          닫기
-        </Button>
-      </DialogActions>
+      </ModalContent>
+      <ModalFooter>
+        <CloseButton onClick={onClose}>닫기</CloseButton>
+      </ModalFooter>
     </Dialog>
   );
 };
@@ -301,4 +289,32 @@ const ImageChangeButton = styled.button`
   padding: 0.5rem 1rem;
   margin-left: 27.1rem;
   cursor: pointer;
+`;
+
+const ModalHeader = styled.h2`
+  font-size: 1.5rem;
+  min-height: 5rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+`;
+
+const ModalContent = styled.div`
+  overflow-x: hidden;
+  padding: 0 24px;
+`;
+
+const ModalFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 24px 24px;
+`;
+
+const CloseButton = styled.button`
+  border: none;
+  background: transparent;
+  color: #1976d2;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 4px 8px;
 `;

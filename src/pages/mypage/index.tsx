@@ -4,7 +4,6 @@ import user from '@/assets/image/user.png';
 import { useQuery } from '@tanstack/react-query';
 import { restFetcher } from '@/queryClient';
 import axios from 'axios';
-import { textAlign } from '@mui/system';
 import { PostType } from '@/types/post';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import likeIcon from '@mui/icons-material/Favorite';

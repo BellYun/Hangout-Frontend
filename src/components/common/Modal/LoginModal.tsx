@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from '@mui/material';
+import Dialog from '@mui/material/Dialog';
 import GoogleIcon from '@mui/icons-material/Google';
 import axios from 'axios';
-import { atom, useRecoilState, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { User, UUid } from '@/atom/atom';
 import cookie from 'react-cookies';
 import { postLogin, BASE_URL, BASE_HOST } from '@/api/api';
 
@@ -23,7 +15,6 @@ interface LoginModalProps {
 const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   const [email, setUseremail] = useState('');
   const [password, setPassword] = useState('');
-  const setUserData = useSetRecoilState<User>(UUid);
 
   const navigate = useNavigate();
   const handleUseremailChange = (
@@ -72,7 +63,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
     }
   };
 
-  21
   function getGoogleLoginUrl() {
       // Google's OAuth 2.0 endpoint for requesting an access token
       var oauth2Endpoint = BASE_URL+'/auth/oauth2/authorize/google';
@@ -123,12 +113,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
         },
       }}
     >
-      <DialogTitle
-        style={{ fontSize: '1.6rem', height: '8rem', textAlign: 'center' }}
-      >
-        로그인
-      </DialogTitle>
-      <DialogContent style={{ overflowX: 'hidden' }}>
+      <ModalHeader>로그인</ModalHeader>
+      <ModalContent>
         <InputBox>
           <Input
             type="text"
@@ -152,12 +138,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
             구글 로그인
           </LoginButton>
         </ButtonBox>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary">
-          닫기
-        </Button>
-      </DialogActions>
+      </ModalContent>
+      <ModalFooter>
+        <CloseButton onClick={onClose}>닫기</CloseButton>
+      </ModalFooter>
     </Dialog>
   );
 };
@@ -195,4 +179,34 @@ const LoginButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+`;
+
+const ModalHeader = styled.h2`
+  font-size: 1.6rem;
+  height: 8rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
+
+const ModalContent = styled.div`
+  overflow-x: hidden;
+  padding: 0 24px;
+`;
+
+const ModalFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 24px 24px;
+`;
+
+const CloseButton = styled.button`
+  border: none;
+  background: transparent;
+  color: #1976d2;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 4px 8px;
 `;
