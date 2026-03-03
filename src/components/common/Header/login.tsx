@@ -102,7 +102,7 @@ const ILayout = styled.div`
   color: white;
   border-radius: 1rem;
   font-weight: bolder;
-  font-family: 'Pretendard-Regular';
+  font-family: inherit;
   margin-top: 4px;
   margin-bottom: 4px;
   cursor: pointer;

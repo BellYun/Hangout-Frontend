@@ -74,7 +74,7 @@ const TitleContainer = styled.div`
   font-weight: 1000;
   font-size: 1.8rem;
   text-align: center;
-  font-family: 'SUITE-Regular';
+  font-family: inherit;
   overflow: visible;
 `;
 
@@ -124,7 +124,7 @@ const TextContainer = styled.div`
   text-align: center;
   line-height: 1.5rem; //문장 상하 간격
   color: white;
-  font-family: 'SUITE-Regular';
+  font-family: inherit;
   overflow: visible;
 `;
 

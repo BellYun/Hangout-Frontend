@@ -152,7 +152,7 @@ const Title = styled.button`
   color: #3db9ff;
   background-color: white;
   font-weight: bold;
-  font-family: 'RixInooAriDuriR';
+  font-family: inherit;
   border: none;
   transition: transform 0.7s;
   cursor: pointer;
@@ -178,7 +178,7 @@ const Inputlayout = styled.div`
   flex-direction: row;
   justify-content: space-between;
   font-size: medium;
-  font-family: 'Pretendard-Regular';
+  font-family: inherit;
 
   @media (max-width: 700px) {
     width: 70%;
