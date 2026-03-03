@@ -13,7 +13,6 @@ import gyeongju from '@/assets/image/trip3.webp';
 import place from '@/assets/image/placeholder.webp';
 import { useNavigate } from 'react-router-dom';
 import cookie from 'react-cookies';
-import '@/assets/font/font.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BASE_URL, getUserData } from '@/api/api';
 //TODO : mypage 기능 누락 수정

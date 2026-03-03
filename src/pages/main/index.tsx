@@ -1,6 +1,5 @@
 import React, { Suspense, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import '../../assets/font/font.css';
 import { useNavigate } from 'react-router-dom';
 
 type SlickModule = typeof import('react-slick');
