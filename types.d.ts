@@ -1,5 +1,3 @@
-import 'react';
-
 declare module '*.svg' {
   import * as React from 'react';
 
@@ -8,11 +6,3 @@ declare module '*.svg' {
   >;
   export default ReactComponent;
 }
-
-declare module 'react' {
-  interface ImgHTMLAttributes<T> {
-    fetchPriority?: 'high' | 'low' | 'auto';
-  }
-}
-
-export {};

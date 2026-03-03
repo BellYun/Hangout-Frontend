@@ -1,14 +1,15 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import jejuBtn from '../../assets/image/jeju-btn.webp';
-import gyeongjuBtn from '../../assets/image/gyeongju-btn.webp';
-import seoulBtn from '../../assets/image/seoul-btn.webp';
-import busanBtn from '../../assets/image/busan-btn.webp';
-import jeonraBtn from '../../assets/image/jeonra-btn.webp';
-import allBtn from '../../assets/image/all-btn.webp';
-//TODO:> png webp
+import jejuBtn from '../../assets/image/jeju-btn.png';
+import gyeongjuBtn from '../../assets/image/gyeongju-btn.png';
+import seoulBtn from '../../assets/image/seoul-btn.png';
+import busanBtn from '../../assets/image/busan-btn.png';
+import jeonraBtn from '../../assets/image/jeonra-btn.png';
+import allBtn from '../../assets/image/all-btn.png';
+import PostList from '@/components/main/postList';
 
-const PostList = lazy(() => import('@/components/main/postList'));
+// const PostList = React.lazy(() => import('@/components/main/postList'));
+//TODO:> png webp
 
 interface ContentsImgProps {
   backgroundImg: string;
@@ -70,13 +71,11 @@ const Content = () => {
           <BtnName>전체보기</BtnName>
         </ContentsImg>
       </ContentsWrap>
-      <Suspense fallback={null}>
-        <PostList
-          queryString={url}
-          searchType={'stateAndCity'}
-          searchKeyword={selectedLocation}
-        />
-      </Suspense>
+      <PostList
+        queryString={url}
+        searchType={'stateAndCity'}
+        searchKeyword={selectedLocation}
+      />
     </Background>
   );
 };

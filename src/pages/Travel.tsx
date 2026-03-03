@@ -26,6 +26,6 @@ const SearchBackground = styled.div`
 const Searchimg = styled.div`
   width: 100%;
   height: 400px;
-  background-image: url('/src/assets/image/Background.webp');
+  background-image: url('/src/assets/image/Background.jpg');
   background-position: center center;
 `;

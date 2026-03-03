@@ -1,11 +1,13 @@
-import { RouterProvider } from 'react-router-dom';
+import { RouterProvider, useRoutes } from 'react-router-dom';
 import { router } from './routes';
 import '@/reset.scss';
-import '@/assets/font/font.css';
+import { Header } from './components/common/Header/Header';
+import { Footer } from './components/common/Footer/Footer';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { darkTheme } from './theme';
 
 const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -26,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
     font: inherit;
     vertical-align: baseline;
     border: none;
+    font-display: swap;
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
@@ -35,6 +38,9 @@ const GlobalStyle = createGlobalStyle`
   /* HTML5 hidden-attribute fix for newer browsers */
   *[hidden] {
       display: none;
+  }
+  body {
+    
   }
   menu, ol, ul {
     list-style: none;
@@ -55,14 +61,14 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
   }
   a {
     text-decoration:none;
     color:inherit;
   }
   button {
-    font-family: inherit;
+    font-display: swap;
   }
 `;
 

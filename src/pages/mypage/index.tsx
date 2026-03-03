@@ -1,6 +1,6 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import styled from 'styled-components';
-import user from '@/assets/image/user.webp';
+import user from '@/assets/image/user.png';
 import { useQuery } from '@tanstack/react-query';
 import { restFetcher } from '@/queryClient';
 import axios from 'axios';
@@ -9,17 +9,17 @@ import { PostType } from '@/types/post';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import likeIcon from '@mui/icons-material/Favorite';
 import unlikeIcon from '@mui/icons-material/FavoriteBorder';
-import gyeongju from '@/assets/image/trip3.webp';
-import place from '@/assets/image/placeholder.webp';
+import gyeongju from '@/assets/image/trip3.jpg';
+import place from '@/assets/image/placeholder.png';
 import { useNavigate } from 'react-router-dom';
 import cookie from 'react-cookies';
+import '@/assets/font/font.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BASE_URL, getUserData } from '@/api/api';
+import ProfileEditModal from '@/components/common/Modal/ProfileEditModal';
 //TODO : mypage 기능 누락 수정
 
-const ProfileEditModal = lazy(
-  () => import('@/components/common/Modal/ProfileEditModal'),
-);
+// const ProfileEditModal = lazy(() => import('@/components/common/Modal/ProfileEditModal'));
 
 export interface UserType {
   age: number;
@@ -148,7 +148,7 @@ function Profile() {
                 </Container1>
               </Container>
               {modalOpen && (
-                <Suspense fallback={null}>
+                <Suspense fallback={<div>Loading...</div>}>
                   <ProfileEditModal open={modalOpen} onClose={handleModal} />
                 </Suspense>
               )}

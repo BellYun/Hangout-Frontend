@@ -6,11 +6,11 @@ import { Outlet } from 'react-router-dom';
 export default function Layout() {
   return (
     <div>
-      <Header />
-      <Suspense fallback={null}>
-        <Outlet />
+      <Suspense>
+        <Header/>
+          <Outlet/>
+        <Footer/>
       </Suspense>
-      <Footer />
     </div>
   );
 }
