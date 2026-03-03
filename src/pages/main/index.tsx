@@ -177,44 +177,10 @@ const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) 
 const Main = () => {
   const navigate = useNavigate();
   const [SlickSlider, setSlickSlider] = useState<SlickModule['default'] | null>(null);
-  const [showDeferredContent, setShowDeferredContent] = useState(false);
+  const [isHeroLoaded, setIsHeroLoaded] = useState(false);
 
   useEffect(() => {
-    let isCancelled = false;
-    const hero = new Image();
-
-    const revealDeferredContent = () => {
-      if (!isCancelled) {
-        setShowDeferredContent(true);
-      }
-    };
-
-    const handleLoadOrError = () => {
-      revealDeferredContent();
-    };
-
-    hero.src = items[0].url;
-    hero.srcset = items[0].srcSet;
-    hero.sizes = items[0].sizes;
-
-    hero.decode().then(revealDeferredContent).catch(() => {
-      if (hero.complete) {
-        revealDeferredContent();
-        return;
-      }
-      hero.addEventListener('load', handleLoadOrError, { once: true });
-      hero.addEventListener('error', handleLoadOrError, { once: true });
-    });
-
-    return () => {
-      isCancelled = true;
-      hero.removeEventListener('load', handleLoadOrError);
-      hero.removeEventListener('error', handleLoadOrError);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!showDeferredContent) {
+    if (!isHeroLoaded) {
       return;
     }
 
@@ -237,7 +203,7 @@ const Main = () => {
     return () => {
       isCancelled = true;
     };
-  }, [showDeferredContent]);
+  }, [isHeroLoaded]);
 
   const settings = useMemo(
     () => ({
@@ -257,7 +223,7 @@ const Main = () => {
     navigate('/create-post');
   };
 
-  if (!showDeferredContent) {
+  if (!isHeroLoaded || !SlickSlider) {
     return (
       <Layout>
         <ImageContainer>
@@ -272,6 +238,8 @@ const Main = () => {
             loading="eager"
             fetchPriority="high"
             decoding="sync"
+            onLoad={() => setIsHeroLoaded(true)}
+            onError={() => setIsHeroLoaded(true)}
           />
         </ImageContainer>
       </Layout>
@@ -280,26 +248,17 @@ const Main = () => {
 
   return (
     <Layout>
-      {SlickSlider ? (
-        <SlickSlider {...settings}>
-          {items.map((item) => (
-            <HeroSlide
-              key={item.id}
-              item={item}
-              onWriteClick={gotoWrite}
-              loading={item.id === 1 ? 'eager' : 'lazy'}
-              isLcpImage={item.id === 1}
-            />
-          ))}
-        </SlickSlider>
-      ) : (
-        <HeroSlide
-          item={items[0]}
-          onWriteClick={gotoWrite}
-          loading="eager"
-          isLcpImage
-        />
-      )}
+      <SlickSlider {...settings}>
+        {items.map((item) => (
+          <HeroSlide
+            key={item.id}
+            item={item}
+            onWriteClick={gotoWrite}
+            loading="lazy"
+            isLcpImage={false}
+          />
+        ))}
+      </SlickSlider>
       <Suspense fallback={null}>
         <Content />
       </Suspense>
