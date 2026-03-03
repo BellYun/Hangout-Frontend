@@ -9,7 +9,8 @@ interface HeroItem {
   id: number;
   url: string;
   alt: string;
-  srcSet: string;
+  mobileSrcSet: string;
+  desktopSrcSet: string;
   sizes: string;
 }
 
@@ -18,21 +19,24 @@ const items = [
     id: 1,
     url: '/hero/trip1.webp',
     alt: '여행 메인 이미지 1',
-    srcSet: '/hero/trip1-768.webp 768w, /hero/trip1-1280.webp 1280w, /hero/trip1.webp 1920w',
+    mobileSrcSet: '/hero/trip1-480-mobile.webp 480w, /hero/trip1-640-mobile.webp 640w',
+    desktopSrcSet: '/hero/trip1-1280.webp 1280w, /hero/trip1.webp 1920w',
     sizes: '100vw',
   },
   {
     id: 2,
     url: '/hero/trip2.webp',
     alt: '여행 메인 이미지 2',
-    srcSet: '/hero/trip2-768.webp 768w, /hero/trip2-1280.webp 1280w, /hero/trip2.webp 1920w',
+    mobileSrcSet: '/hero/trip2-480-mobile.webp 480w, /hero/trip2-640-mobile.webp 640w',
+    desktopSrcSet: '/hero/trip2-1280.webp 1280w, /hero/trip2.webp 1920w',
     sizes: '100vw',
   },
   {
     id: 3,
     url: '/hero/trip3.webp',
     alt: '여행 메인 이미지 3',
-    srcSet: '/hero/trip3-768.webp 768w, /hero/trip3-1280.webp 1280w, /hero/trip3.webp 1920w',
+    mobileSrcSet: '/hero/trip3-480-mobile.webp 480w, /hero/trip3-640-mobile.webp 640w',
+    desktopSrcSet: '/hero/trip3-1280.webp 1280w, /hero/trip3.webp 1920w',
     sizes: '100vw',
   },
 ];
@@ -139,13 +143,23 @@ interface HeroSlideProps {
   isLcpImage: boolean;
 }
 
-const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) => {
+interface HeroImageProps {
+  item: HeroItem;
+  loading: 'eager' | 'lazy';
+  isLcpImage: boolean;
+  onLoad?: () => void;
+  onError?: () => void;
+}
+
+const HeroImage = ({ item, loading, isLcpImage, onLoad, onError }: HeroImageProps) => {
   return (
-    <ImageContainer>
+    <picture>
+      <source media="(max-width: 767px)" srcSet={item.mobileSrcSet} sizes={item.sizes} />
+      <source media="(min-width: 768px)" srcSet={item.desktopSrcSet} sizes={item.sizes} />
       <img
         className="hero-image"
         src={item.url}
-        srcSet={item.srcSet}
+        srcSet={item.desktopSrcSet}
         sizes={item.sizes}
         alt={item.alt}
         width={1920}
@@ -153,7 +167,17 @@ const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) 
         loading={loading}
         fetchPriority={isLcpImage ? 'high' : 'auto'}
         decoding={isLcpImage ? 'sync' : 'async'}
+        onLoad={onLoad}
+        onError={onError}
       />
+    </picture>
+  );
+};
+
+const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) => {
+  return (
+    <ImageContainer>
+      <HeroImage item={item} loading={loading} isLcpImage={isLcpImage} />
       <HeroOverlay />
       <TitleContainer>
         세상의 <Highlight>다양한</Highlight> 곳을
@@ -226,17 +250,10 @@ const Main = () => {
     return (
       <Layout>
         <ImageContainer>
-          <img
-            className="hero-image"
-            src={items[0].url}
-            srcSet={items[0].srcSet}
-            sizes={items[0].sizes}
-            alt={items[0].alt}
-            width={1920}
-            height={1280}
+          <HeroImage
+            item={items[0]}
             loading="eager"
-            fetchPriority="high"
-            decoding="sync"
+            isLcpImage={true}
             onLoad={() => setIsHeroLoaded(true)}
             onError={() => setIsHeroLoaded(true)}
           />
