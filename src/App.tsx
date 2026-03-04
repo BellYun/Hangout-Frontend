@@ -1,8 +1,7 @@
-import { RouterProvider, useRoutes } from 'react-router-dom';
+import { Suspense } from 'react';
+import { RouterProvider } from 'react-router-dom';
 import { router } from './routes';
 import '@/reset.scss';
-import { Header } from './components/common/Header/Header';
-import { Footer } from './components/common/Footer/Footer';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { darkTheme } from './theme';
 
@@ -76,9 +75,9 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <GlobalStyle />
-      {/* <Suspense fallback={null}> */}
-      <RouterProvider router={router}></RouterProvider>
-      {/* </Suspense> */}
+      <Suspense fallback={<div style={{ padding: '24px', textAlign: 'center' }}>Loading...</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
     </ThemeProvider>
   );
 }
