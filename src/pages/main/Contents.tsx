@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import styled from 'styled-components';
 import jejuBtn from '../../assets/image/jeju-btn.webp';
 import gyeongjuBtn from '../../assets/image/gyeongju-btn.webp';
@@ -6,10 +6,8 @@ import seoulBtn from '../../assets/image/seoul-btn.webp';
 import busanBtn from '../../assets/image/busan-btn.webp';
 import jeonraBtn from '../../assets/image/jeonra-btn.webp';
 import allBtn from '../../assets/image/all-btn.webp';
-import PostList from '@/components/main/postList';
 
-// const PostList = React.lazy(() => import('@/components/main/postList'));
-//TODO:> png webp
+const PostList = lazy(() => import('@/components/main/postList'));
 
 interface ContentsImgProps {
   backgroundImg: string;
@@ -71,11 +69,13 @@ const Content = () => {
           <BtnName>전체보기</BtnName>
         </ContentsImg>
       </ContentsWrap>
-      <PostList
-        queryString={url}
-        searchType={'stateAndCity'}
-        searchKeyword={selectedLocation}
-      />
+      <Suspense fallback={null}>
+        <PostList
+          queryString={url}
+          searchType={'stateAndCity'}
+          searchKeyword={selectedLocation}
+        />
+      </Suspense>
     </Background>
   );
 };

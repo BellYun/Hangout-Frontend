@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { UUid, User } from '@/atom/atom';
 import { useNavigate } from 'react-router-dom';
 import cookie from 'react-cookies';
 import styled from 'styled-components';
-import axios from 'axios';
 import { getLogout } from '@/api/api';
-import LoginModal from '../Modal/LoginModal';
-
-//const LoginModal = React.lazy(() => import('../Modal/LoginModal'));
+const LoginModal = lazy(() => import('../Modal/LoginModal'));
 
 export const Login = () => {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false); // State variable for login modal
@@ -74,7 +71,9 @@ export const Login = () => {
         <LoginLayout onClick={openLoginModal}>로그인</LoginLayout>
         <SigninLayout onClick={gotoRegister}>회원가입</SigninLayout>
         {isLoginModalOpen && (
-          <LoginModal open={isLoginModalOpen} onClose={closeLoginModal} />
+          <Suspense fallback={null}>
+            <LoginModal open={isLoginModalOpen} onClose={closeLoginModal} />
+          </Suspense>
         )}
       </Layout>
     );

@@ -3,9 +3,9 @@ import SearchIcon from '@/assets/image/Search icon.webp';
 import './detailsearch.scss';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
-import Destinationmodal from '../destinationmodal/destinationmodal';
-
-// const Destinationmodal = lazy(() => import('../destinationmodal/destinationmodal'));
+const Destinationmodal = lazy(
+  () => import('../destinationmodal/destinationmodal'),
+);
 
 const DetailSearch = () => {
   const [destinationmodal, setDestinationModal] = useState(false);
@@ -23,7 +23,7 @@ const DetailSearch = () => {
       </button>
       <div className="modaltest">
         {destinationmodal && (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={null}>
             <Destinationmodal />
           </Suspense>
         )}
