@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import user from '../../../assets/image/user.png';
+import user from '../../../assets/image/user.webp';
 import cookie from 'react-cookies';
 import ClearIcon from '@mui/icons-material/Clear';
 import Dialog from '@mui/material/Dialog';

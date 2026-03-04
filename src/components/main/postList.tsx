@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import likeIcon from '@mui/icons-material/Favorite';
-import place from '@/assets/image/placeholder.png';
+import place from '@/assets/image/placeholder.webp';
 import { useNavigate } from 'react-router-dom';
 import { PostType } from '@/types/post';
-import gyeongju from '@/assets/image/trip1.jpg';
-import user from '@/assets/image/user.png';
+import gyeongju from '@/assets/image/trip1.webp';
+import user from '@/assets/image/user.webp';
 import cookie from 'react-cookies';
 import { getLikeData, getPostListData, postLikeData } from '@/api/api';
 
