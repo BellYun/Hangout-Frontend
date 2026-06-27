@@ -123,9 +123,16 @@ interface HeroSlideProps {
   onWriteClick: () => void;
   loading: 'eager' | 'lazy';
   isLcpImage: boolean;
+  onImageLoad?: () => void;
 }
 
-const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) => {
+const HeroSlide = ({
+  item,
+  onWriteClick,
+  loading,
+  isLcpImage,
+  onImageLoad,
+}: HeroSlideProps) => {
   return (
     <ImageContainer>
       <img
@@ -137,6 +144,8 @@ const HeroSlide = ({ item, onWriteClick, loading, isLcpImage }: HeroSlideProps) 
         loading={loading}
         fetchPriority={isLcpImage ? 'high' : 'auto'}
         decoding={isLcpImage ? 'sync' : 'async'}
+        onLoad={onImageLoad}
+        onError={onImageLoad}
       />
       <HeroOverlay />
       <TitleContainer>
@@ -166,6 +175,8 @@ const Main = () => {
     }
 
     let isCancelled = false;
+    let fallbackTimer: ReturnType<typeof setTimeout> | undefined;
+    let idleCallbackId: number | undefined;
 
     const loadSlick = async () => {
       const [{ default: Slick }] = await Promise.all([
@@ -179,10 +190,24 @@ const Main = () => {
       }
     };
 
-    void loadSlick();
+    const scheduleLoad = () => {
+      void loadSlick();
+    };
+
+    if ('requestIdleCallback' in window) {
+      idleCallbackId = window.requestIdleCallback(scheduleLoad, { timeout: 3000 });
+    } else {
+      fallbackTimer = globalThis.setTimeout(scheduleLoad, 2000);
+    }
 
     return () => {
       isCancelled = true;
+      if (idleCallbackId !== undefined) {
+        window.cancelIdleCallback(idleCallbackId);
+      }
+      if (fallbackTimer !== undefined) {
+        window.clearTimeout(fallbackTimer);
+      }
     };
   }, [isHeroLoaded]);
 
@@ -204,23 +229,19 @@ const Main = () => {
     navigate('/create-post');
   };
 
-  if (!isHeroLoaded || !SlickSlider) {
+  if (!SlickSlider) {
     return (
       <Layout>
-        <ImageContainer>
-          <img
-            className="hero-image"
-            src={items[0].url}
-            alt={items[0].alt}
-            width={1920}
-            height={1280}
-            loading="eager"
-            fetchPriority="high"
-            decoding="sync"
-            onLoad={() => setIsHeroLoaded(true)}
-            onError={() => setIsHeroLoaded(true)}
-          />
-        </ImageContainer>
+        <HeroSlide
+          item={items[0]}
+          onWriteClick={gotoWrite}
+          loading="eager"
+          isLcpImage
+          onImageLoad={() => setIsHeroLoaded(true)}
+        />
+        <Suspense fallback={null}>
+          <Content />
+        </Suspense>
       </Layout>
     );
   }
@@ -228,13 +249,13 @@ const Main = () => {
   return (
     <Layout>
       <SlickSlider {...settings}>
-        {items.map((item) => (
+        {items.map((item, index) => (
           <HeroSlide
             key={item.id}
             item={item}
             onWriteClick={gotoWrite}
-            loading="lazy"
-            isLcpImage={false}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            isLcpImage={index === 0}
           />
         ))}
       </SlickSlider>
