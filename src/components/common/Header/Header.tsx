@@ -19,7 +19,6 @@ export const Header = () => {
     try {
       const response = await axios.post(BASE_URL + '/auth/refresh-token');
       const accessToken = response.data.data.accessToken;
-      console.log(accessToken);
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     } catch (e) {
       alert('다시 로그인해주세요');
@@ -43,8 +42,7 @@ export const Header = () => {
 
   useEffect(() => {
     IsLogin();
-    console.log(userData);
-  });
+  }, []);
 
   const search = (): void => {
     if (keyword === null) {
@@ -57,7 +55,6 @@ export const Header = () => {
 
   const setWord = (e: any) => {
     setKeyword(e.target.value);
-    console.log(keyword);
   };
 
   const gotoWrite = () => {
@@ -86,7 +83,6 @@ export const Header = () => {
 
   const handleSelect = (e: any) => {
     setSelected(e.target.value);
-    console.log(Selected);
   };
 
   return (
